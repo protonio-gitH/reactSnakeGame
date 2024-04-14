@@ -1,0 +1,42 @@
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.game{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.restart-btn{
+  background-color: black;
+  font-size: 18px;
+  color: red;
+}
+
+.game-score{
+  font-size: 18px;
+  color: red;
+  font-weight: 700;
+}
+
+.game-board{
+  position: relative;
+}
+
+.game-end{
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 36px;
+  font-weight: 700;
+  color: red;
+}
+
+
+
