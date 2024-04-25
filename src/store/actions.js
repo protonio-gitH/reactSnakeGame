@@ -1,4 +1,4 @@
-import { isSnakeStraight } from "../snakeFunctions/functions";
+import { getRandomCords, isSnakeStraight } from "../snakeFunctions/functions";
 
 
 export default {
@@ -61,7 +61,7 @@ export default {
                 case 'ArrowLeft':
                     if (getState().snakePrevDirection !== "ArrowRight"){
                         if (initSnake[initSnake.length - 1].x == 0){
-                            initSnake.push({ x: initSnake[initSnake.length - 1].x + 600, y: initSnake[initSnake.length - 1].y });
+                            initSnake.push({ x: initSnake[initSnake.length - 1].x + 570, y: initSnake[initSnake.length - 1].y });
                             dispatch({type:"CHANGE_DIRECTION",payload:{data:"ArrowLeft"}})
                             break;
                         }
@@ -78,8 +78,8 @@ export default {
                     }
                 case 'ArrowRight':
                     if (getState().snakePrevDirection !== "ArrowLeft"){
-                        if (initSnake[initSnake.length - 1].x == 600){
-                            initSnake.push({ x: initSnake[initSnake.length - 1].x - 600, y: initSnake[initSnake.length - 1].y });
+                        if (initSnake[initSnake.length - 1].x == 570){
+                            initSnake.push({ x: initSnake[initSnake.length - 1].x - 570, y: initSnake[initSnake.length - 1].y });
                             dispatch({type:"CHANGE_DIRECTION",payload:{data:"ArrowRight"}})
                             break;
                         }
@@ -96,8 +96,8 @@ export default {
                     }
                 case 'ArrowDown':
                     if (getState().snakePrevDirection !== "ArrowUp"){
-                        if (initSnake[initSnake.length - 1].y == 600){
-                            initSnake.push({ x: initSnake[initSnake.length - 1].x, y: initSnake[initSnake.length - 1].y - 600 });
+                        if (initSnake[initSnake.length - 1].y == 570){
+                            initSnake.push({ x: initSnake[initSnake.length - 1].x, y: initSnake[initSnake.length - 1].y - 570 });
                             dispatch({type:"CHANGE_DIRECTION",payload:{data:"ArrowDown"}})
                             break;
                         }
@@ -115,7 +115,7 @@ export default {
                 case 'ArrowUp':
                     if (getState().snakePrevDirection !== "ArrowDown"){
                         if (initSnake[initSnake.length - 1].y == 0){
-                            initSnake.push({ x: initSnake[initSnake.length - 1].x, y: initSnake[initSnake.length - 1].y + 600 });
+                            initSnake.push({ x: initSnake[initSnake.length - 1].x, y: initSnake[initSnake.length - 1].y + 570 });
                             dispatch({type:"CHANGE_DIRECTION",payload:{data:"ArrowUp"}})
                             break;
                         }
@@ -132,8 +132,8 @@ export default {
                     }
                 default:
                     if (getState().snakePrevDirection !== "ArrowLeft"){
-                        if (initSnake[initSnake.length - 1].x == 600){
-                            initSnake.push({ x: initSnake[initSnake.length - 1].x - 600, y: initSnake[initSnake.length - 1].y });
+                        if (initSnake[initSnake.length - 1].x == 570){
+                            initSnake.push({ x: initSnake[initSnake.length - 1].x - 570, y: initSnake[initSnake.length - 1].y });
                             dispatch({type:"CHANGE_DIRECTION",payload:{data:"ArrowRight"}})
                             break;
                         }
@@ -151,6 +151,16 @@ export default {
                 for (let elem of initSnake){
                     if (elem.x == initSnake[initSnake.length -1].x && elem.y == initSnake[initSnake.length -1].y && elem !== initSnake[initSnake.length -1]){
                         dispatch({ type: "GAME_END"});
+                    }
+                }
+            }
+            
+            if (isSnakeStraight(initSnake)){
+                if (initSnake.length > 4){
+                    for (let elem of initSnake){
+                        if (elem.x == initSnake[initSnake.length -1].x && elem.y == initSnake[initSnake.length -1].y && elem !== initSnake[initSnake.length -1]){
+                            dispatch({ type: "GAME_END"});
+                        }
                     }
                 }
             }

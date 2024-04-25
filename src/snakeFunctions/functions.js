@@ -12,18 +12,19 @@ export function drawSnake(context,snake,cellSize){
     }
 }
 
-export function getRandomCords(width,height,cellSize){
+export function getRandomCords(width,height,cellSize,excludedCords){
     const maxX = Math.floor(width / cellSize);
     const maxY = Math.floor(height / cellSize);
     
     // const x = Math.floor(Math.random() * maxX) * cellSize;
     const x = Math.floor(Math.random() * (maxX - 1)) * cellSize + cellSize;
     const y = Math.floor(Math.random() * (maxY - 1)) * cellSize + cellSize;
-
-    // const y = Math.floor(Math.random() * maxY) * cellSize;
+    
 
     return { x, y };
 }
+
+
 
 export function drawFood(context,food,cellSize){
     context.fillStyle = "crimson";

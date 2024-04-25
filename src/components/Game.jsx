@@ -28,7 +28,7 @@ const Game = () => {
 
     useEffect(() => {
         if (Object.keys(selector.initBoard).length != 0){
-            dispatch(actions.initFood(getRandomCords(selector.initBoard.width,selector.initBoard.height,selector.cellSize)));
+            dispatch(actions.initFood(getRandomCords(selector.initBoard.width,selector.initBoard.height,selector.cellSize,selector.initSnake)));
         }
     },[selector.initBoard])
 
@@ -40,14 +40,21 @@ const Game = () => {
             drawBoard(context,width,height);
             let snake = JSON.parse(JSON.stringify(selector.initSnake));
             drawSnake(context,snake,selector.cellSize);
-        
             if (selector.food.x != 0 && selector.food.y != 0){
                 let context = document.querySelector('#game-board').getContext('2d');
-                drawFood(context,selector.food,selector.cellSize);
+                drawFood(context,selector.food,selector.cellSize,snake);
                 if (selector.initSnake[selector.initSnake.length -1].x == selector.food.x && selector.initSnake[selector.initSnake.length -1].y == selector.food.y){
+                    let foodSpawn = false;
+                    let cords;
+                    while (foodSpawn == false){
+                        cords = getRandomCords(selector.initBoard.width,selector.initBoard.height,selector.cellSize,snake);
+                        if (!snake.some(elem => elem.x == cords.x && elem.y == cords.y)){
+                            foodSpawn = true;
+                        }
+                    }
                     dispatch(actions.plusScore());
                     dispatch(actions.addBlock());
-                    dispatch(actions.initFood(getRandomCords(selector.initBoard.width,selector.initBoard.height,selector.cellSize)));
+                    dispatch(actions.initFood(cords));
                 }
 
             }
@@ -73,7 +80,7 @@ const Game = () => {
 
     function restartFunc(){
         dispatch(actions.initSnake());
-        dispatch(actions.initFood(getRandomCords(selector.initBoard.width,selector.initBoard.height,selector.cellSize)));
+        dispatch(actions.initFood(getRandomCords(selector.initBoard.width,selector.initBoard.height,selector.cellSize,selector.initSnake)));
         dispatch(actions.startGame());
 
     }
